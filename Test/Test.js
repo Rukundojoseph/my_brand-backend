@@ -126,6 +126,22 @@ describe("blogs api" ,()=>{
         })      
     })
     //creating blog
+    describe("Post /admin/blog",()=>{
+        let blog={
+            title: "test blog",
+            body : "testing blog form mocha",
+            image : "image url"
+        }
+        it("it should say you are not logged in ", ()=>{
+            chai.request(server)
+            .post("/admin/blogs")
+            .send(blog)
+            .end((err,response)=>{
+                response.should.have.status(404)            
+            })
+        })
+
+    })
     //editing blog 
     //deleting blog 
     //deleting message 

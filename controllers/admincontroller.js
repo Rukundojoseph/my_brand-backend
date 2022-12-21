@@ -47,7 +47,8 @@ module.exports.getSingleBlogs= async (req,res)=>{
 module.exports.CreateBlog = async (req,res)=>{
     try{
    const blog = await  Blog.create(req.body)
-   res.status(200).json({
+   res.status(201).json({
+    statusCode: 201,
     message: 'succesfully created',
     blog: blog._id
    })

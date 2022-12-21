@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+
 const requireAuth = (req, res, next) => {
     const token = req.cookies.token 
   // check json web token exists & is verified
@@ -16,8 +17,8 @@ const requireAuth = (req, res, next) => {
       }
     });
   } else {
-    res.json({
-      statusCode: 400,     
+    res.status(403).json({
+      statusCode: 403,     
       message:'you are not logged in'
     });
   }
@@ -26,7 +27,7 @@ const requireAuth = (req, res, next) => {
 
 //require admin
 const requireAdmin = (req, res, next) => {
-  const token = req.cookies.token ;
+  const token = req.cookies.token || req.body.token;
 // check json web token exists & is verified
 if (token) {
   jwt.verify(token, 'my name is joseph', async (err, decodedToken) => {
@@ -37,13 +38,12 @@ if (token) {
       console.log(decodedToken);
       let user = await User.findById(decodedToken.id);
       if(user.email == 'joseph@gmail.com')   
-      {
-      console.log(user.email)
+      {      
       next();      
       }
       else{
-      res.status(422).json({
-        statusCode: 422,        
+      res.status(403).json({
+        statusCode: 403,        
         message: "you are not the admin"
       })
       }

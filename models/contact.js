@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 const { isEmail } = require('validator');
 
 const contactSchema = mongoose.Schema({
-
     email: {
         type: String,
         lowercase: true,
