@@ -1,5 +1,4 @@
 const Blog = require('../models/blog')
-const Comments = require('../models/comment')
 const LIKE = require('../models/comment')
 const User = require('../models/User')
 const handleErrors = require('./errohandler')

@@ -38,7 +38,7 @@ describe("blogs api" ,()=>{
     //         .send(users[1]) 
     //         .end((err,response) =>{
     //             response.should.have.status(400)     
-    //         //    response.body.msg.should.be.eq("incorrect password")        
+    //              response.body.msg.should.be.eq("incorrect password")        
                   
     //         })             
     //         done();
@@ -86,7 +86,50 @@ describe("blogs api" ,()=>{
         })   
     })
     // comment 
+    describe("post /blogs/:id/comment", ()=>{
+        const blogid = "639b45418b6be33a98643589"
+        const comment ="what is  happening now"
+        it("it should check add comment on blog id ",(done)=>{            
+            chai.request(server)
+            .post('/blogs/'+ blogid+'/comment') 
+            .send(comment)
+            .end((err,response) =>{
+                response.should.have.status(403)                
+            }) 
+            done();
+        })
+        it("it should check for error ",(done)=>{
+            chai.request(server)
+            .get('/blogs/'+blogid) 
+            .end((err,response) =>{                
+                response.body.data.should.be.a('object')
+            }) 
+            done();
+        })   
+    })
+
     // like 
+    describe("post /blogs/:id/like", ()=>{
+        const blogid = "639b45418b6be33a98643589"
+        const comment ="what is  happening now"
+        it("it should get single blog by id ",(done)=>{            
+            chai.request(server)
+            .post('/blogs/'+ blogid+'/like') 
+            .send(comment)
+            .end((err,response) =>{
+                response.should.have.status(403)                
+            }) 
+            done();
+        })
+        it("it should get one object for one blog ",(done)=>{
+            chai.request(server)
+            .get('/blogs/'+blogid) 
+            .end((err,response) =>{                
+                response.body.data.should.be.a('object')
+            }) 
+            done();
+        })   
+    })
     // add message 
     //get admin  messages
     describe("GET /admin/messages", ()=>{   
@@ -143,8 +186,29 @@ describe("blogs api" ,()=>{
 
     })
     //editing blog 
+    describe("delete /admin/blog/:id",()=>{      
+        it("it should say you are not logged in ", ()=>{
+            chai.request(server)
+            .delete("/admin/blogs")            
+            .end((err,response)=>{
+                response.should.have.status(404)            
+            })
+        })
+
+    })
     //deleting blog 
+    describe("GET /admin/messages", ()=>{
+        const  token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOWI3MTI2ZjJkZWE4MjkwNDAxYWE2MCIsImlhdCI6MTY3MTQ0NjYxMCwiZXhwIjoxNjcxNzA1ODEwfQ.mHXK2yUKN_7dx5CIzPDcYTboOBLl3jgPxzwDoL1-zXA";
+        it("it should say you are not logged in",(done)=>{
+            chai.request(server)
+            .get('/admin/messages') 
+            .end((err,response) =>{
+                response.should.have.status(404)   
+                response.body.message.should.be.eq("you are not logged in")             
+            }) 
+            done();
+        })      
+    })
     //deleting message 
     //deleting comment     
-
 })
