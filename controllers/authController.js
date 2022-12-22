@@ -42,8 +42,9 @@ module.exports.login_post = async (req, res) => {
   try {
     const user = await User.login(email, password);
     const token = createToken(user._id);
-    res.cookie('token', token, { httpOnly: true, maxAge: maxAge * 1000 });
+    res.cookie('token', token, { httpOnly: true, maxAge: maxAge * 1000 });   
     res.status(200).json({ userID: user._id, token: token  });
+    
   } 
   catch (err) {
     const errors = handleErrors(err);
@@ -53,6 +54,8 @@ module.exports.login_post = async (req, res) => {
 }
 module.exports.logout_get = (req, res) => {
   res.cookie('token', '', { maxAge: 1 });
-  res.redirect('/');
+  res.status(200).json({
+    statusCode: 200,
+    message: 'logged out succefully'});
 }
 

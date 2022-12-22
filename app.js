@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const { requireAuth, checkUser , requireAdmin } = require('./middleware/authMiddleware');
 const adminControll = require('./controllers/admincontroller')
+const swaggerUI = require('swagger-ui-express')
+const swaggerJsDoc = require('./swagger')
+
+const port = 3000
 
 
 const app = express();
@@ -26,7 +30,8 @@ const contactRoutes= require('./routes/contactme')
 const dbURI = 'mongodb://127.0.0.1:27017/authopf';
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true })
   .then((result) =>{ 
-    app.listen(3000)
+    app.listen(port)
+    swaggerJsDoc(app,port)    
   })
   .catch((err) => console.log(err));
 
