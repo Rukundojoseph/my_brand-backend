@@ -1,5 +1,4 @@
-const mongoose = require('mongoose')
-
+import mongoose from 'mongoose'
 const commentSchema = mongoose.Schema({
     date: {type: Date, default: Date.now},
     body: { 
@@ -19,4 +18,6 @@ const commentSchema = mongoose.Schema({
 )
 
 
-module.exports = mongoose.model('Comment', commentSchema)
+const Comment = mongoose.model('Comment', commentSchema)
+
+export default  Comment

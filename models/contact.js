@@ -1,13 +1,8 @@
-const mongoose = require('mongoose')
-const { isEmail } = require('validator');
+import  mongoose from 'mongoose'
 
+import joi from 'joi'
 const contactSchema = mongoose.Schema({
-    email: {
-        type: String,
-        lowercase: true,
-        validate: [isEmail, 'please enter va;id email'],
-        required: true
-    },
+    email: joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
     username:{
         type: String,
         required: true,        
@@ -19,4 +14,6 @@ const contactSchema = mongoose.Schema({
     date: {type: Date, default: Date.now},
 })
 
-module.exports = mongoose.model('Message' , contactSchema)
+const Message = mongoose.model('Message' , contactSchema)
+
+export default Message

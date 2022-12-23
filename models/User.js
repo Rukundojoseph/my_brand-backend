@@ -1,15 +1,10 @@
-const mongoose = require('mongoose');
-const { isEmail } = require('validator');
-const bcrypt = require('bcrypt');
+import  mongoose from 'mongoose';
 
-const userSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    required: [true, 'Please enter an email'],
-    unique: true,
-    lowercase: true,
-    validate: [isEmail, 'Please enter a valid email']
-  },
+import joi from 'joi'
+import bcrypt from 'bcrypt';
+
+const userSchema = new mongoose.Schema({ 
+    email: joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),  
   password: {
     type: String,
     required: [true, 'Please enter a password'],
@@ -40,4 +35,4 @@ userSchema.statics.login = async function(email, password) {
 
 const User = mongoose.model('user', userSchema);
 
-module.exports = User;
+export default User;

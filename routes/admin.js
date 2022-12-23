@@ -1,7 +1,7 @@
-const express = require('express')
+import express from 'express'
 const router = express()
-const adminControll = require('../controllers/admincontroller')
-const { requireAdmin, requireAuth } = require('../middleware/authMiddleware')
+import {getAllBlogs,CreateBlog,EditBlogs,DeleteBlog,getlikes,getContacts,getUsers,Deletemessage} from '../controllers/admincontroller.js'
+import { requireAdmin, requireAuth } from '../middleware/authMiddleware.js'
 
 
 
@@ -91,17 +91,16 @@ const { requireAdmin, requireAuth } = require('../middleware/authMiddleware')
  *             description: unauthorized
  * */
 
-router.get('/admin/blogs',requireAdmin,adminControll.getAllBlogs)
-router.post('/admin/blogs',requireAdmin,adminControll.CreateBlog)
-router.patch('/admin/blogs/:id',requireAdmin,adminControll.EditBlogs)
-router.delete('/admin/blogs/:id',requireAdmin,adminControll.DeleteBlog)
-router.get('/admin/blogs/:id/likes',requireAdmin,adminControll.getlikes)
+router.get('/admin/blogs',requireAdmin,getAllBlogs)
+router.post('/admin/blogs',requireAdmin,CreateBlog)
+router.patch('/admin/blogs/:id',requireAdmin,EditBlogs)
+router.delete('/admin/blogs/:id',requireAdmin,DeleteBlog)
+router.get('/admin/blogs/:id/likes',requireAdmin,getlikes)
 router.get('/admin/blogs/:blogid/comments',()=>{})
-router.delete('/admin/blogs/:blogid/comments/:commentId',()=>{})
-router.get('/admin/messages',requireAdmin,adminControll.getContacts)
-router.get('/admin/users',requireAdmin,adminControll.getUsers)
-router.delete('/admin/messages/:id',requireAdmin,adminControll.Deletemessage)
+router.get('/admin/messages',requireAdmin,getContacts)
+router.get('/admin/users',requireAdmin,getUsers)
+router.delete('/admin/messages/:id',requireAdmin,Deletemessage)
 
 
-module.exports = router
+export default  router
 

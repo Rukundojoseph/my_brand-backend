@@ -1,14 +1,14 @@
-const Blog = require('../models/blog')
-const jwt = require('jsonwebtoken')
-const Comments = require('../models/comment')
-const LIKE = require('../models/like')
-const handleErrors = require('./errohandler')
-const User = require('../models/User');
-const CONTACT = require('../models/contact')
+import  Blog  from '../models/blog.js'
+import  jwt from 'jsonwebtoken'
+import  Comments from '../models/comment.js'
+import  LIKE from '../models/like.js'
+import  handleErrors from './errohandler.js'
+import  User from '../models/User.js'
+import  CONTACT from '../models/contact.js'
 
 
 
-module.exports.getAllBlogs= async (req,res)=>{
+export const getAllBlogs= async (req,res)=>{
     const blogs = await Blog.find({})
  if(blogs){
     res.json({
@@ -26,7 +26,7 @@ module.exports.getAllBlogs= async (req,res)=>{
     message: "no blog post yet"
  })
 }
-module.exports.getSingleBlogs= async (req,res)=>{
+export const getSingleBlogs= async (req,res)=>{
     const blogID= req.params.id
     const blog = await Blog.findOne({ _id: blogID}).populate("comments")
  if(blog){
@@ -50,7 +50,7 @@ module.exports.getSingleBlogs= async (req,res)=>{
     message: "there is no blog with that id "
  })
 }
-module.exports.addLike =async(req,res)=>{    
+export const addLike =async(req,res)=>{    
     const blogid= req.params.id     
     const token = req.cookies.token    
     jwt.verify(token, 'my name is joseph', async (err, decodedToken) => {
@@ -106,7 +106,7 @@ module.exports.addLike =async(req,res)=>{
      
 //     }
 }
-module.exports.addComment =async(req,res)=>{
+export const addComment =async(req,res)=>{
     const blogid= req.params.id     
     const text = req.body.text
     const token = req.cookies.token    
@@ -151,7 +151,7 @@ module.exports.addComment =async(req,res)=>{
         }
       }); 
 }
-module.exports.addMessage = async(req,res) =>{
+export const addMessage = async(req,res) =>{
     try{
     const ms = {
         email : req.body.email,
@@ -168,4 +168,4 @@ module.exports.addMessage = async(req,res) =>{
         const errors = handleErrors(err)
         res.status(400).json({errors})
     }   
-}
+} 

@@ -1,8 +1,8 @@
-const Blog = require('../models/blog')
-const LIKE = require('../models/comment')
-const User = require('../models/User')
-const handleErrors = require('./errohandler')
-const CONTACT = require('../models/contact')
+import  Blog from '../models/blog.js'
+import  LIKE from '../models/comment.js'
+import  User from '../models/User.js'
+import  handleErrors from './errohandler.js';
+import CONTACT from '../models/contact.js';
 
 // const Commentslikes = (id){
  
@@ -10,7 +10,7 @@ const CONTACT = require('../models/contact')
 
 
 
-module.exports.getAllBlogs= async (req,res)=>{   
+export const getAllBlogs= async (req,res)=>{   
     try{ 
     const blogs = await Blog.find({}) 
     res.json({
@@ -25,7 +25,7 @@ module.exports.getAllBlogs= async (req,res)=>{
 console.log(error)
     }
 }
-module.exports.getSingleBlogs= async (req,res)=>{
+export const getSingleBlogs= async (req,res)=>{
     try{
     const blogID= req.params.blogID
     const blog = await Blog.findOne({ _id: blogID}) 
@@ -43,7 +43,7 @@ module.exports.getSingleBlogs= async (req,res)=>{
     }
 
 }
-module.exports.CreateBlog = async (req,res)=>{
+export const CreateBlog = async (req,res)=>{
     try{
    const blog = await  Blog.create(req.body)
    res.status(201).json({
@@ -60,7 +60,7 @@ module.exports.CreateBlog = async (req,res)=>{
 
 
 }
-module.exports.EditBlogs= async (req,res)=>{
+export const EditBlogs= async (req,res)=>{
     try{
         const blog = await Blog.findOneAndUpdate({_id: req.params.id},req.body,{upsert: true, 
             new: true, 
@@ -93,7 +93,7 @@ catch(error){
 }
 }
 
-module.exports.DeleteBlog= async (req,res)=>{
+export const DeleteBlog= async (req,res)=>{
 	try {
 		await Blog.deleteOne({ _id: req.params.id })
 		res.status(204).send()
@@ -103,7 +103,7 @@ module.exports.DeleteBlog= async (req,res)=>{
 	}
 }
 
-module.exports.getContacts= async (req,res)=>{
+export const getContacts= async (req,res)=>{
     try{ 
         const conts = await CONTACT.find({}) 
         res.json({
@@ -118,7 +118,7 @@ module.exports.getContacts= async (req,res)=>{
     console.log(error)
         }
 }
-module.exports.Deletemessage= async (req,res)=>{   
+export const Deletemessage= async (req,res)=>{   
     try {
 		await CONTACT.deleteOne({ _id: req.params.id })
 		res.status(204).send({
@@ -131,7 +131,7 @@ module.exports.Deletemessage= async (req,res)=>{
 		res.send({ error: "Post doesn't exist!" })
 	}
 }
-module.exports.getUsers= async (req,res)=>{
+export const getUsers= async (req,res)=>{
     try{ 
         const users = await User.find({}).select('email') 
         res.json({users:users, population: users.length })
@@ -143,7 +143,7 @@ module.exports.getUsers= async (req,res)=>{
 
         }
 }
-module.exports.getlikes= async (req,res)=>{
+export const getlikes= async (req,res)=>{
     const blogID= req.params.id
     const likers = await LIKE.find({ _id : blogID }).sort('date')
     if(!likers){

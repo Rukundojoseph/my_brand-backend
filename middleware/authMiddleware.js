@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+import  jwt from 'jsonwebtoken';
+import  User from '../models/User.js';
 
 const requireAuth = (req, res, next) => {
     const token = req.cookies.token 
@@ -60,24 +60,6 @@ if (token) {
 
 //require admin
 
-const checkUser = (req, res, next) => {
-  const token = req.cookies.token;
-  if (token) {
-    jwt.verify(token, 'my name is joseph', async (err, decodedToken) => {
-      if (err) {
-        res.locals.user = null;
-        next();
-      } else {
-        let user = await User.findById(decodedToken.id);
-        res.locals.user = user;
-        next();
-      }
-    });
-  } else {
-    res.locals.user = null;
-    next();
-  }
-};
 
-
-module.exports = { requireAuth, checkUser ,requireAdmin };
+export  { requireAuth }
+export {requireAdmin} 

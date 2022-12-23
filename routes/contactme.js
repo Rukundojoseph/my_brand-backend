@@ -1,9 +1,9 @@
-const express = require("express")
+import express from "express"
 const router = express.Router()
-const getmessage  = require("../controllers/blogcontroller")
-const { requireAuth } = require("../middleware/authMiddleware")
+import {addMessage}  from "../controllers/blogcontroller.js"
 
 
-router.post('/contact',getmessage.addMessage)
 
-module.exports = router
+router.post('/contact',addMessage)
+
+export default router

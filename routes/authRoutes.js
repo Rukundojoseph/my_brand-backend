@@ -1,5 +1,5 @@
-const { Router } = require('express');
-const authController = require('../controllers/authController');
+import  { Router } from 'express'
+import  { signup_post,login_post,logout_get} from '../controllers/authController.js'
 
 const router = Router();
 /**
@@ -77,12 +77,12 @@ const router = Router();
  *       409:
  *             description: The email is already registered.
  * */
-router.get('/signup', authController.signup_get);
-router.post('/signup', authController.signup_post);
-router.get('/login', authController.login_get);
-router.post('/login', authController.login_post);
-router.get('/logout', authController.logout_get);
+
+router.post('/signup', signup_post);
+
+router.post('/login',login_post);
+router.get('/logout',logout_get);
 
 
 
-module.exports = router;
+export default router;

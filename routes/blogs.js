@@ -1,7 +1,7 @@
-const express = require('express')
+import  express from 'express'
 const router = express()
-const blocontroll = require('../controllers/blogcontroller')
-const { requireAuth } = require('../middleware/authMiddleware')
+import  {getAllBlogs,getSingleBlogs,addLike,addComment} from '../controllers/blogcontroller.js'
+import  { requireAuth } from'../middleware/authMiddleware.js'
 
 /**
  * @swagger
@@ -102,15 +102,15 @@ const { requireAuth } = require('../middleware/authMiddleware')
  * */
 
 
-router.get('/blogs',blocontroll.getAllBlogs)
-router.get('/blogs/:id',blocontroll.getSingleBlogs)
+router.get('/blogs',getAllBlogs)
+router.get('/blogs/:id',getSingleBlogs)
 // router.get('/blogs/:id/likes',()=>{})
 // router.get('/blogs/:blogid/comments',()=>{})
 
 //require authentication
-router.post('/blogs/:id/like',requireAuth,blocontroll.addLike)
-router.post('/blogs/:id/comment',requireAuth,blocontroll.addComment)
+router.post('/blogs/:id/like',requireAuth,addLike)
+router.post('/blogs/:id/comment',requireAuth,addComment)
 //require authentication
 
 
-module.exports = router
+export default router

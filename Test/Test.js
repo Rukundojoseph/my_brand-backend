@@ -1,7 +1,7 @@
-let chai = require("chai")
-let chaiHttp = require("chai-http")
-const { TokenExpiredError } = require("jsonwebtoken")
-let server = require("../app")
+import chai from"chai"
+import chaiHttp from"chai-http"
+
+import server from"../app.js"
 
 chai.should()
 
@@ -9,41 +9,41 @@ chai.use(chaiHttp)
 
 describe("blogs api" ,()=>{
     //login 
-    // describe("GET /login", ()=>{        
-    //     const users=[{
-    //         email: "joseph@gmail.com",
-    //         password : "pass123"
-    //     },
-    //    {
-    //         email: "joseph@gmail.com",
-    //         password : "pass1mm23"
-    //     },
-    //     {
-    //         email: "josephgmail.com",
-    //         password : "pass123"
-    //     }]
-    //     it("should log the user in ",(done)=>{
-    //         chai.request(server)
-    //         .post('/login')
-    //         .send(users[0]) 
-    //         .end((err,response) =>{
-    //             response.should.have.status(200)     
-    //             response.body.message.should.be.eq("you are not logged in")           
-    //         })             
-    //         done();
-    //     })   
-    //     it("it should say incorect email or password",(done)=>{
-    //         chai.request(server)
-    //         .post('/login')
-    //         .send(users[1]) 
-    //         .end((err,response) =>{
-    //             response.should.have.status(400)     
-    //              response.body.msg.should.be.eq("incorrect password")        
+    describe("GET /login", ()=>{        
+        const users=[{
+            email: "joseph@gmail.com",
+            password : "pass123"
+        },
+       {
+            email: "joseph@gmail.com",
+            password : "pass1mm23"
+        },
+        {
+            email: "josephgmail.com",
+            password : "pass123"
+        }]
+        it("should log the user in ",(done)=>{
+            chai.request(server)
+            .post('/login')
+            .send(users[0]) 
+            .end((err,response) =>{
+                response.should.have.status(200)     
+                response.body.message.should.be.eq("you are not logged in")           
+            })             
+            done();
+        })   
+        it("it should say incorect email or password",(done)=>{
+            chai.request(server)
+            .post('/login')
+            .send(users[1]) 
+            .end((err,response) =>{
+                response.should.have.status(400)     
+                 response.body.msg.should.be.eq("incorrect password")        
                   
-    //         })             
-    //         done();
-    //     })   
-    // })
+            })             
+            done();
+        })   
+    })
     //signup 
     //get blogs
     describe("GET /blogs", ()=>{

@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const joi = require('joi')
+import mongoose from 'mongoose'
+import joi  from 'joi'
 
 const blogSchema = new mongoose.Schema({
     
@@ -27,5 +27,7 @@ comments:[{
      
 })
 
-module.exports  = mongoose.model('BLOG' , blogSchema)
+const Blog  =  mongoose.model('BLOG' , blogSchema)
+
+export default Blog;
 

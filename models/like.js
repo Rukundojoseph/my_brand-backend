@@ -1,5 +1,4 @@
-const mongoose = require('mongoose')
-
+import  mongoose from 'mongoose'
 const likeSchema = mongoose.Schema({
     date: {type: Date, default: Date.now},            
             email: {
@@ -11,4 +10,6 @@ const likeSchema = mongoose.Schema({
 )
 
 
-module.exports = mongoose.model('Like', likeSchema)
+const LIKE = mongoose.model('Like', likeSchema)
+
+export default LIKE
